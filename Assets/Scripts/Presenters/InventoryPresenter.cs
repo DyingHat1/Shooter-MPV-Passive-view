@@ -12,6 +12,16 @@ public class InventoryPresenter : MonoBehaviour
 
     public int MaxItemsCount => _itemPresenters.Count;
 
+    private void OnDisable()
+    {
+        _inventory.ItemCollected -= OnItemCollected;
+
+        foreach (ItemView view in _itemViews)
+        {
+            view.ItemDropped -= OnItemDropped;
+        }
+    }
+
     public void Init(List<ItemView> itemViews, Inventory inventory)
     {
         _inventory = inventory;
@@ -27,16 +37,6 @@ public class InventoryPresenter : MonoBehaviour
         foreach (ItemView view in _itemViews)
         {
             view.ItemDropped += OnItemDropped;
-        }
-    }
-
-    private void OnDisable()
-    {
-        _inventory.ItemCollected -= OnItemCollected;
-
-        foreach (ItemView view in _itemViews)
-        {
-            view.ItemDropped -= OnItemDropped;
         }
     }
 

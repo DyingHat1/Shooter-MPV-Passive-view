@@ -12,12 +12,28 @@ public class DefaultEnemy : Enemy, IUpdatable
 
     public event Action Attacking;
 
-    public DefaultEnemy(int health, Vector2 position, float rotation, float maxAttackDistance, int damage, float velocity, Player target) : base(health, position, rotation, maxAttackDistance, target)
+    public DefaultEnemy(int health, Vector2 position, float rotation, float maxAttackDistance, int damage, float velocity, Player target) 
+        : base(health, position, rotation, maxAttackDistance, target)
     {
         IsMooving = false;
         _elapsedTime = Config.DefaultEnemyAttackDelay;
         _damage = damage;
         _velocity = velocity;
+    }
+
+    public void Update(float deltaTime)
+    {
+        _elapsedTime -= deltaTime;
+
+        if (GetDistanceToTarget(Target) <= Config.DefaultEnemyMaxDistanceToChase)
+        {
+            IsMooving = true;
+            TryAttackTarget(Target, deltaTime);
+        }
+        else
+        {
+            IsMooving = false;
+        }
     }
 
     protected override bool TryAttackTarget(Player target, float deltaTime)
@@ -47,20 +63,5 @@ public class DefaultEnemy : Enemy, IUpdatable
         Vector2 direction = GetDirectionToTarget(target);
         Direction = direction;
         MoveTo(Position + direction * _velocity * deltaTime);
-    }
-
-    public void Update(float deltaTime)
-    {
-        _elapsedTime -= deltaTime;
-
-        if (GetDistanceToTarget(Target) <= Config.DefaultEnemyMaxDistanceToChase)
-        {
-            IsMooving = true;
-            TryAttackTarget(Target, deltaTime);
-        }
-        else
-        {
-            IsMooving = false;
-        }
     }
 }

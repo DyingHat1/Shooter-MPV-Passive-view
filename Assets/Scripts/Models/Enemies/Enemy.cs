@@ -5,7 +5,8 @@ public abstract class Enemy : Creature
     protected Player Target { get; private set; }
     protected float MaxAttackDistance { get; private set; }
 
-    protected Enemy(int health, Vector2 position, float rotation, float maxAttackDistance, Player target) : base(health, position, rotation)
+    protected Enemy(int health, Vector2 position, float rotation, float maxAttackDistance, Player target) 
+        : base(health, position, rotation)
     {
         Target = target;
         MaxAttackDistance = maxAttackDistance;

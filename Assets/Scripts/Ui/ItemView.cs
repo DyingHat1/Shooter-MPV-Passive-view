@@ -17,6 +17,19 @@ public class ItemView : MonoBehaviour
 
     public event UnityAction<ItemView> ItemDropped;
 
+    private void OnEnable()
+    {
+        _dropButton.onClick.AddListener(OnDropButtonClick);
+        _iconButton.onClick.AddListener(OnIconButtonClick);
+    }
+
+    private void OnDisable()
+    {
+        _dropButton.onClick.RemoveListener(OnDropButtonClick);
+        _iconButton.onClick.RemoveListener(OnIconButtonClick);
+        _cell.ItemsChanged -= OnItemsChanged;
+    }
+
     public void Init(Cell cell)
     {
         _cell = cell;
@@ -30,19 +43,6 @@ public class ItemView : MonoBehaviour
         _icon.sprite = sprite;
         _icon.enabled = true;
         _iconButton.enabled = true;
-    }
-
-    private void OnEnable()
-    {
-        _dropButton.onClick.AddListener(OnDropButtonClick);
-        _iconButton.onClick.AddListener(OnIconButtonClick);
-    }
-
-    private void OnDisable()
-    {
-        _dropButton.onClick.RemoveListener(OnDropButtonClick);
-        _iconButton.onClick.RemoveListener(OnIconButtonClick);
-        _cell.ItemsChanged -= OnItemsChanged;
     }
 
     private void MakeEmpty()

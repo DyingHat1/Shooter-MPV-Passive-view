@@ -19,20 +19,26 @@ public class Root : MonoBehaviour
     private Vector2 _leftBottomBoundry;
     private Vector2 _rightTopBoundry;
 
-
     private void Awake()
     {
         _tileMap.CompressBounds();
-        _leftBottomBoundry = new Vector2(_tileMap.transform.position.x - _tileMap.size.x/2, _tileMap.transform.position.y - _tileMap.size.y/2);
-        _rightTopBoundry = new Vector2(_tileMap.transform.position.x + _tileMap.size.x/2, _tileMap.transform.position.y + _tileMap.size.y/2);
+
+        _leftBottomBoundry = new Vector2(_tileMap.transform.position.x - _tileMap.size.x/2, 
+            _tileMap.transform.position.y - _tileMap.size.y/2);
+
+        _rightTopBoundry = new Vector2(_tileMap.transform.position.x + _tileMap.size.x/2, 
+            _tileMap.transform.position.y + _tileMap.size.y/2);
 
         Inventory inventory = CreateInventory();
-        _weaponModel = new Rifle(_weaponPresenter.transform.position, _weaponPresenter.transform.rotation.z, Config.RifleShootDelay, Config.RifleDamage, Config.RifleBulletSpeed);
-        _playerModel = new Player(Config.PlayerHealth, _playerPresenter.transform.position, _playerPresenter.transform.rotation.z, Config.PlayerSpeed, _weaponModel, _leftBottomBoundry, _rightTopBoundry, inventory);
+
+        _weaponModel = new Rifle(_weaponPresenter.transform.position, _weaponPresenter.transform.rotation.z, 
+            Config.RifleShootDelay, Config.RifleDamage, Config.RifleBulletSpeed);
+
+        _playerModel = new Player(Config.PlayerHealth, _playerPresenter.transform.position, _playerPresenter.transform.rotation.z, 
+            Config.PlayerSpeed, _weaponModel, _leftBottomBoundry, _rightTopBoundry, inventory);
         
         _weaponPresenter.Init(_weaponModel);
         _playerPresenter.Init(_playerModel);
-
         LoadSavedResults();
         _factory.CreateAmmo(_playerModel.Position, StartAmmoCount);
     }
@@ -100,7 +106,7 @@ public class Root : MonoBehaviour
                 {
                     for (int i = 0; i < pair.Value; i++)
                     {
-                        _factory.CreateItem(pair.Key, _playerModel.Position);
+                        _factory.TryCreateItem(pair.Key, _playerModel.Position);
                     }
                 }
         }

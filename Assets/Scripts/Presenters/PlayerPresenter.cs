@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerPresenter : KillablePresenter
 {
@@ -42,6 +41,14 @@ public class PlayerPresenter : KillablePresenter
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out ItemPresenter item) && item.IsDropped == false)
+        {
+            Model.AddItem(item.Model);
+        }
+    }
+
     private void OnShootButtonClick()
     {
         Model.Shoot();
@@ -64,13 +71,5 @@ public class PlayerPresenter : KillablePresenter
     private bool IsNeedFlip()
     {
         return ((_direction.x < 0 && _isWatchingRight) || (_direction.x > 0 && _isWatchingRight == false));
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out ItemPresenter item) && item.IsDropped == false)
-        {
-            Model.AddItem(item.Model);
-        }
     }
 }

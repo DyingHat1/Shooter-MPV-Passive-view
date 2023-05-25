@@ -11,7 +11,8 @@ public abstract class Weapon : Item, IUpdatable
 
     public event Action<Bullet> Shot;
 
-    public Weapon(Vector2 position, float rotation, float shootDelay, int damage, float bulletSpeed, string name) : base(position, rotation, name)
+    public Weapon(Vector2 position, float rotation, float shootDelay, int damage, float bulletSpeed, string name) 
+        : base(position, rotation, name)
     {
         _shootDirection = Vector2.right;
         Damage = damage;

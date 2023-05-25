@@ -6,18 +6,6 @@ public class ScreensMenu : MonoBehaviour
     [SerializeField] private EndScreen _loseScreen;
     [SerializeField] private EndScreen _winScreen;
 
-    public void OpenWinScreen()
-    {
-        Time.timeScale = 0;
-        _winScreen.gameObject.SetActive(true);
-    }
-
-    public void OpenLoseScreen()
-    {
-        Time.timeScale = 0;
-        _loseScreen.gameObject.SetActive(true);
-    }
-
     private void OnEnable()
     {
         _loseScreen.RestartScene += OnRestartScene;
@@ -28,6 +16,18 @@ public class ScreensMenu : MonoBehaviour
     {
         _loseScreen.RestartScene -= OnRestartScene;
         _winScreen.RestartScene -= OnRestartScene;
+    }
+
+    public void OpenWinScreen()
+    {
+        Time.timeScale = 0;
+        _winScreen.gameObject.SetActive(true);
+    }
+
+    public void OpenLoseScreen()
+    {
+        Time.timeScale = 0;
+        _loseScreen.gameObject.SetActive(true);
     }
 
     private void OnRestartScene()

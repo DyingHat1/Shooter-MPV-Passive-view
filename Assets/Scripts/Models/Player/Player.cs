@@ -12,7 +12,8 @@ public class Player : Creature
 
     public event Action WeaponShot;
 
-    public Player(int health, Vector2 position, float rotation, float velocity, Weapon weapon, Vector2 leftBottomBoundry, Vector2 rightTopBoundry, Inventory inventory) : base(health, position, rotation)
+    public Player(int health, Vector2 position, float rotation, float velocity, Weapon weapon, Vector2 leftBottomBoundry, 
+        Vector2 rightTopBoundry, Inventory inventory) : base(health, position, rotation)
     {
         _inventory = inventory;
         _leftBottomBoundry = leftBottomBoundry;
@@ -72,6 +73,7 @@ public class Player : Creature
 
     private bool CanMove(Vector2 position)
     {
-        return ((position.x < _rightTopBoundry.x) && (position.x > _leftBottomBoundry.x) && (position.y < _rightTopBoundry.y) && (position.y > _leftBottomBoundry.y));
+        return ((position.x < _rightTopBoundry.x) && (position.x > _leftBottomBoundry.x) && 
+            (position.y < _rightTopBoundry.y) && (position.y > _leftBottomBoundry.y));
     }
 }

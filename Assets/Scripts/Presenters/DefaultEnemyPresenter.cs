@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DefaultEnemyPresenter : KillablePresenter
 {
@@ -13,16 +12,6 @@ public class DefaultEnemyPresenter : KillablePresenter
 
     public new DefaultEnemy Model => base.Model as DefaultEnemy;
 
-    private void Update()
-    {
-        if (IsNeedFlip())
-            Flip();
-
-        Model.Update(Time.deltaTime);
-        _animator.SetBool(IsRunningBoolName, Model.IsMooving);
-        _animator.SetBool(IsWatchingRightBoolName, _isWatchingRight);
-    }
-
     private void OnEnable()
     {
         Model.Attacking += OnAttacking;
@@ -31,6 +20,16 @@ public class DefaultEnemyPresenter : KillablePresenter
     private void OnDisable()
     {
         Model.Attacking -= OnAttacking;
+    }
+
+    private void Update()
+    {
+        if (IsNeedFlip())
+            Flip();
+
+        Model.Update(Time.deltaTime);
+        _animator.SetBool(IsRunningBoolName, Model.IsMooving);
+        _animator.SetBool(IsWatchingRightBoolName, _isWatchingRight);
     }
 
     private void OnAttacking()

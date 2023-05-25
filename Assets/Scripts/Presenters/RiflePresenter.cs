@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class RiflePresenter : Presenter
@@ -24,6 +23,7 @@ public class RiflePresenter : Presenter
 
     private bool IsNeedFlip()
     {
-        return ((Mathf.Abs(Model.Rotation) > 90 && _spriteRenderer.flipY == false) || (Mathf.Abs(Model.Rotation) < 90 && _spriteRenderer.flipY));
+        return ((Mathf.Abs(Model.Rotation) > 90 && _spriteRenderer.flipY == false) || 
+            (Mathf.Abs(Model.Rotation) < 90 && _spriteRenderer.flipY));
     }
 }

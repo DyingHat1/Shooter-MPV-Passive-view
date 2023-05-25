@@ -32,20 +32,18 @@ public class Cell
     {
         Item item = _items.Pop();
         item.Destroy();
-
-        if (Count == 0)
-        {
-            Name = Config.EmptyItemSlotName;
-        }
-
-        ItemsChanged?.Invoke();
+        OnItemsChanged();
     }
 
     public void Drop(Vector2 position)
     {
         Item item = _items.Pop();
         item.Drop(position);
+        OnItemsChanged();
+    }
 
+    private void OnItemsChanged()
+    {
         if (Count == 0)
         {
             Name = Config.EmptyItemSlotName;

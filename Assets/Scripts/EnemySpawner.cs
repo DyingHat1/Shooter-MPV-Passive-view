@@ -51,13 +51,15 @@ public class EnemySpawner : MonoBehaviour
     private DefaultEnemy SpawnDefaultEnemy()
     {
         Vector2 position = GetRandomSpawnPosition(_spawnRadiusX, _spawnRadiusY);
-        DefaultEnemy enemy = new DefaultEnemy(Config.DefaultEnemyHealth, position, 0, Config.DefaultMaxAttackDistance, Config.DefaultEnemyDamage, Config.DefaultEnemySpeed, _player.Model);
+        DefaultEnemy enemy = new DefaultEnemy(Config.DefaultEnemyHealth, position, 0, Config.DefaultMaxAttackDistance, 
+            Config.DefaultEnemyDamage, Config.DefaultEnemySpeed, _player.Model);
         _factory.CreateDefaultEnemy(enemy);
         return enemy;
     }
 
     private Vector2 GetRandomSpawnPosition(float radiusX, float radiusY)
     {
-        return new Vector2(_tileMap.transform.position.x + Random.Range(-radiusX, radiusX), _tileMap.transform.position.y + Random.Range(-radiusY, radiusY));
+        return new Vector2(_tileMap.transform.position.x + Random.Range(-radiusX, radiusX), 
+            _tileMap.transform.position.y + Random.Range(-radiusY, radiusY));
     }
 }

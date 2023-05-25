@@ -29,7 +29,7 @@ public class PresentersFactory : MonoBehaviour
         }
     }
 
-    public bool CreateItem(string itemName, Vector2 position)
+    public bool TryCreateItem(string itemName, Vector2 position)
     {
         ItemPresenter presenter = _itemTemplates?.First(p => p.Name == itemName);
 

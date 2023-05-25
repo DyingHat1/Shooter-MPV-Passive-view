@@ -11,17 +11,6 @@ public class ItemPresenter : Presenter
     public Sprite Sprite => _spriteRenderer.sprite;
     public bool IsDropped { get; private set; }
 
-    private void OnCollected()
-    {
-        Disable();
-    }
-
-    private void OnDropped()
-    {
-        IsDropped = true;
-        Enable();
-    }
-
     private void OnEnable()
     {
         IsDropped = false;
@@ -35,6 +24,25 @@ public class ItemPresenter : Presenter
         Model.Collected -= OnCollected;
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PlayerPresenter player))
+        {
+            IsDropped = false;
+        }
+    }
+
+    private void OnCollected()
+    {
+        Disable();
+    }
+
+    private void OnDropped()
+    {
+        IsDropped = true;
+        Enable();
+    }
+
     private void Enable()
     {
         _collider.enabled = true;
@@ -45,13 +53,5 @@ public class ItemPresenter : Presenter
     {
         _collider.enabled = false;
         _spriteRenderer.enabled = false;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out PlayerPresenter player))
-        {
-            IsDropped = false;
-        }
     }
 }
